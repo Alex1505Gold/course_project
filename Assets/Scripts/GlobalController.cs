@@ -9,5 +9,5 @@ public class GlobalController : MonoBehaviour
     public int score = 0;
     public int difficulty = 1;
     public int turn = 0;
-    
+    public string stage;
 }

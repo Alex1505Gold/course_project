@@ -892,6 +892,7 @@ GameObject:
   - component: {fileID: 944078044}
   - component: {fileID: 944078049}
   - component: {fileID: 944078048}
+  - component: {fileID: 944078050}
   m_Layer: 5
   m_Name: CanvasChars
   m_TagString: Untagged
@@ -1030,6 +1031,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944078043}
   m_CullTransparentMesh: 1
+--- !u!114 &944078050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944078043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160d66164b5f5214fb4a83fa07fdec3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemiesKilled: 0
+  charsOnScreen: 1
+  score: 0
+  difficulty: 1
+  turn: 0
+  stage: 
 --- !u!1 &1110310686
 GameObject:
   m_ObjectHideFlags: 0
