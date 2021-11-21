@@ -8,4 +8,11 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 100f;
     public float damage = 15f;
     public int level = 1;
+    public int value;
+    [HideInInspector] public bool hired;
+
+    private void Start()
+    {
+        if (gameObject.tag == "Player") hired = true;
+    }
 }

@@ -7,21 +7,20 @@ public class Attack : MonoBehaviour
 {
     private Animator animator;
     public Image character;
-    bool attacking = false;
+    private GameObject controller;
+    [HideInInspector] public bool attacking = false;
 
     private void Start()
     {
+        controller = GameObject.FindGameObjectWithTag("GameController");
         animator = character.gameObject.GetComponent<Animator>();
     }
 
     private void OnMouseUp()
     {
+        controller.gameObject.GetComponent<GlobalController>().stage = "attacking";
+        controller.gameObject.GetComponent<GlobalController>().curDamage = character.gameObject.GetComponent<PlayerController>().damage;
         StartCoroutine(Slash());
-    }
-    
-    public bool GetCondition()
-    {
-        return attacking;
     }
 
     IEnumerator Slash()

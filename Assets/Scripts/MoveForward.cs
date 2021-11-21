@@ -25,10 +25,11 @@ public class MoveForward : MonoBehaviour
 
     void Update()
     {
-        if (System.Math.Round(rec.offsetMin.x) <= checkpos)
+        if (System.Math.Round(rec.offsetMin.x) <= checkpos && GetComponent<PlayerController>().hired)
         {
             rec.offsetMin += new Vector2(speed, 0);
             rec.offsetMax += new Vector2(speed, 0);
+            stop = false;
         }
         else
         {
@@ -42,9 +43,9 @@ public class MoveForward : MonoBehaviour
         {
             animator.Play("Hero_run");
         }
-        else
+        else if (GetComponent<PlayerController>().hired)
         {
-            if (!attack.gameObject.GetComponent<Attack>().GetCondition())
+            if (!attack.gameObject.GetComponent<Attack>().attacking)
                 animator.Play("Hero_Idle");
             health_bg.gameObject.SetActive(true);
             health.gameObject.SetActive(true);
