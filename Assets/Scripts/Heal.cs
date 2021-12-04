@@ -18,9 +18,25 @@ public class Heal : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if (controller.gameObject.GetComponent<GlobalController>().potions > 0 &&
+            controller.gameObject.GetComponent<GlobalController>().stage == "planning")
+        {
+            controller.gameObject.GetComponent<GlobalController>().stage = "healing";
+            controller.gameObject.GetComponent<GlobalController>().curHeal =
+                player.GetComponent<PlayerController>().healPower + 5 * (controller.GetComponent<GlobalController>().level - 1);
+            //controller.gameObject.GetComponent<GlobalController>().potions--;
+        }
+        else if (controller.gameObject.GetComponent<GlobalController>().stage == "healing")
+            controller.gameObject.GetComponent<GlobalController>().stage = "planning";
+    }
+}
+
+/*
+    private void OnMouseUp()
+    {
         controller.gameObject.GetComponent<GlobalController>().stage = "healing";
         float maxHealth = player.GetComponent<PlayerController>().maxHealth;
-        int level = player.GetComponent<PlayerController>().level;
+        int level = controller.GetComponent<GlobalController>().level;
         if (controller.gameObject.GetComponent<GlobalController>().potions > 0
             && player.GetComponent<PlayerController>().health < maxHealth)
         {
@@ -30,4 +46,4 @@ public class Heal : MonoBehaviour
             controller.gameObject.GetComponent<GlobalController>().potions--;
         }
     }
-}
+*/

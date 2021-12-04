@@ -10,6 +10,7 @@ public class CharClick : MonoBehaviour
     public Image bg1;
     public Image bg2;
     private bool clicked;
+    private GameObject controller;
 
     void setButtons(bool flag)
     {
@@ -23,21 +24,25 @@ public class CharClick : MonoBehaviour
 
     void Start()
     {
+        controller = GameObject.FindGameObjectWithTag("GameController");
         setButtons(false);
         clicked = false;
     }
 
     private void OnMouseUp()
     {
-        if (!clicked)
+        if (controller.GetComponent<GlobalController>().stage == "planning")
         {
-            setButtons(true);
-            clicked = true;
-        }
-        else
-        {
-            setButtons(false);
-            clicked = false;
+            if (!clicked)
+            {
+                setButtons(true);
+                clicked = true;
+            }
+            else
+            {
+                setButtons(false);
+                clicked = false;
+            }
         }
     }
 }

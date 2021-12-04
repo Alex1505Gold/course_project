@@ -9,24 +9,36 @@ public class Attack : MonoBehaviour
     public Image character;
     private GameObject controller;
     [HideInInspector] public bool attacking = false;
+    private string type;
 
     private void Start()
     {
         controller = GameObject.FindGameObjectWithTag("GameController");
         animator = character.gameObject.GetComponent<Animator>();
+        type = character.gameObject.tag;
     }
 
     private void OnMouseUp()
     {
-        controller.gameObject.GetComponent<GlobalController>().stage = "attacking";
-        controller.gameObject.GetComponent<GlobalController>().curDamage = character.gameObject.GetComponent<PlayerController>().damage;
-        StartCoroutine(Slash());
+        if (controller.GetComponent<GlobalController>().stage == "planning")
+        {
+            controller.gameObject.GetComponent<GlobalController>().stage = "attacking";
+            controller.gameObject.GetComponent<GlobalController>().curDamage = 
+                character.gameObject.GetComponent<PlayerController>().damage + 5 * (controller.GetComponent<GlobalController>().level - 1);
+            StartCoroutine(Slash());
+        }
+        else if (controller.GetComponent<GlobalController>().stage == "attacking")
+        {
+            controller.GetComponent<GlobalController>().stage = "planning";
+        }
     }
 
     IEnumerator Slash()
     {
         attacking = true;
-        animator.Play("Hero_slash");
+        if (type == "Player") animator.Play("Hero_slash");
+        else if (type == "Knight") animator.Play("Knight_slash");
+        else if (type == "Magician") animator.Play("Magician_slash");
         yield return new WaitForSeconds(0.85f);
         attacking = false;
     }
