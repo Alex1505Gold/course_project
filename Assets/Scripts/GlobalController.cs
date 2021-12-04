@@ -136,6 +136,13 @@ public class GlobalController : MonoBehaviour
                 characters[index].transform.position.y,
                 characters[index].transform.position.z);
             characters[index].GetComponent<PlayerController>().health -= curDamage;
+            StartCoroutine(StopEffect(bleedRef));
         }
+    }
+
+    IEnumerator StopEffect(GameObject splashRef)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Destroy(splashRef);
     }
 }

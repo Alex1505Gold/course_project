@@ -52,33 +52,35 @@ public class EnemyController : MonoBehaviour
         string type_anim = type + "_awake";
         animator.Play(type_anim);
         yield return new WaitForSeconds(0.85f);
-        StartCoroutine(IdleAnim(type));
+        StartCoroutine(IdleAnim(type, true));
         print(type);
     }
 
-    IEnumerator IdleAnim(string type)
+    IEnumerator IdleAnim(string type, bool starting)
     {
         string type_anim = type + "_Idle"; ;
         animator.Play(type_anim);
-        barBgRef = (GameObject)Instantiate(barBg);
-        barBgRef.transform.SetParent(controller.transform);
-        barBgRef.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-        RectTransform rec;
-        rec = barBgRef.gameObject.GetComponent<RectTransform>();
-        rec.anchorMin = new Vector2(minXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.001f);
-        rec.anchorMax = new Vector2(maxXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.042f);
-        rec.offsetMin = new Vector2(0f, 0f);
-        rec.offsetMax = new Vector2(0f, 0f);
+        if (starting)
+        {
+            barBgRef = (GameObject)Instantiate(barBg);
+            barBgRef.transform.SetParent(controller.transform);
+            barBgRef.gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
+            RectTransform rec;
+            rec = barBgRef.gameObject.GetComponent<RectTransform>();
+            rec.anchorMin = new Vector2(minXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.001f);
+            rec.anchorMax = new Vector2(maxXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.042f);
+            rec.offsetMin = new Vector2(0f, 0f);
+            rec.offsetMax = new Vector2(0f, 0f);
 
-        barRef = (GameObject)Instantiate(bar);
-        barRef.transform.SetParent(controller.transform);
-        rec = barRef.gameObject.GetComponent<RectTransform>();
-        rec.anchorMin = new Vector2(minXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.001f);
-        rec.anchorMax = new Vector2(maxXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.042f);
-        rec.offsetMin = new Vector2(0f, 0f);
-        rec.offsetMax = new Vector2(0f, 0f);
-        barRef.gameObject.transform.localScale = new Vector3(0.95f, 0.8f, 1f);
-        print(type);
+            barRef = (GameObject)Instantiate(bar);
+            barRef.transform.SetParent(controller.transform);
+            rec = barRef.gameObject.GetComponent<RectTransform>();
+            rec.anchorMin = new Vector2(minXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.001f);
+            rec.anchorMax = new Vector2(maxXenemyPos, gameObject.GetComponent<RectTransform>().anchorMax.y + 0.042f);
+            rec.offsetMin = new Vector2(0f, 0f);
+            rec.offsetMax = new Vector2(0f, 0f);
+            barRef.gameObject.transform.localScale = new Vector3(0.95f, 0.8f, 1f);
+        }
         yield return new WaitForSeconds(0f);
     }
 
@@ -145,7 +147,7 @@ public class EnemyController : MonoBehaviour
         string type_anim = type + "_slash";
         animator.Play(type_anim);
         yield return new WaitForSeconds(0.85f);
-        StartCoroutine(IdleAnim(type));
+        StartCoroutine(IdleAnim(type, false));
     }
 
     private void Death()
