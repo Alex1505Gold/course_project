@@ -16,10 +16,12 @@ public class MoveForward : MonoBehaviour
     private Collider2D coll;
     private Animator animator;
     private bool stop = false;
+    private GameObject controller;
 
     void Start()
     {
         bool flag = false;
+        controller = GameObject.FindGameObjectWithTag("GameController");
         rec = GetComponent<RectTransform>();
         animator = GetComponent<Animator>();
         health_bg.gameObject.SetActive(false);
@@ -45,7 +47,7 @@ public class MoveForward : MonoBehaviour
             else if (gameObject.tag == "Knight") animator.Play("Knight_run");
             else if (gameObject.tag == "Magician") animator.Play("Magician_run");
         }
-        else if (GetComponent<PlayerController>().hired)
+        else if (GetComponent<PlayerController>().hired && controller.GetComponent<GlobalController>().stage != "gameOver")
         {
             stop = true;
             bool flag = true;

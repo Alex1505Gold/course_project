@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,10 +37,29 @@ public class PlayerController : MonoBehaviour
                 hired = false;
                 controller.GetComponent<GlobalController>().charsOnScreen--;
             }
+            else
+            {
+                controller.GetComponent<GlobalController>().stage = "gameOver";
+                StartCoroutine(Death());
+            }
         }
         if (controller.GetComponent<GlobalController>().stage == "planning" || controller.GetComponent<GlobalController>().stage == "healing")
             gameObject.GetComponent<Collider2D>().enabled = true;
         else gameObject.GetComponent<Collider2D>().enabled = false;
+    }
+
+    IEnumerator Death()
+    {
+        gameObject.GetComponent<Animator>().Play("Hero_death");
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(GameOver());
+    }
+
+    IEnumerator GameOver()
+    {
+        gameObject.GetComponent<Animator>().Play("Hero_dead");
+        yield return new WaitForSeconds(0.01f);
+        SceneManager.LoadScene(0);
     }
 
     private void OnMouseUp()

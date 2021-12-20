@@ -75,7 +75,7 @@ public class GlobalController : MonoBehaviour
                 }
             }
             turn = 0;
-            stage = "planning";
+            stage = "waiting";
         }
         if (enemiesOnScreen == 0)
         {
@@ -137,6 +137,7 @@ public class GlobalController : MonoBehaviour
                 characters[index].transform.position.z);
             characters[index].GetComponent<PlayerController>().health -= curDamage;
             StartCoroutine(StopEffect(bleedRef));
+            if (queue == enemiesOnScreen - 1) stage = "planning";
         }
     }
 
