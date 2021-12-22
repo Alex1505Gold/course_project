@@ -17,8 +17,7 @@ public class GlobalController : MonoBehaviour
     [HideInInspector] public string stage;
     [HideInInspector] public float curDamage;
     [HideInInspector] public float curHeal;
-    private UnityEngine.Object skeletonWeak, skeletonStrong, zombie, orc, bleed;
-    //private List<UnityEngine.Object> enemyPref;
+    private UnityEngine.Object skeletonWeak, skeletonStrong, bleed;
     private UnityEngine.Object[] enemyPref = new UnityEngine.Object[2];
     [HideInInspector] public List<GameObject> characters;
     private List<GameObject> enemies;
@@ -75,7 +74,7 @@ public class GlobalController : MonoBehaviour
                 }
             }
             turn = 0;
-            stage = "waiting";
+            stage = "enemyAttack";
         }
         if (enemiesOnScreen == 0)
         {
@@ -137,7 +136,7 @@ public class GlobalController : MonoBehaviour
                 characters[index].transform.position.z);
             characters[index].GetComponent<PlayerController>().health -= curDamage;
             StartCoroutine(StopEffect(bleedRef));
-            if (queue == enemiesOnScreen - 1) stage = "planning";
+            if (queue >= enemiesOnScreen - 1) stage = "planning";
         }
     }
 
